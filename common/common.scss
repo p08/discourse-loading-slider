@@ -56,12 +56,3 @@
     top: 49px; // TODO: Share $footer-nav-height from footer-nav.scss
   }
 }
-
-body #main-outlet {
-  transition: opacity 0.2s ease;
-}
-
-body.loading #main-outlet {
-  opacity: 0.2;
-  transition: opacity var(--loading-duration) ease;
-}

@@ -7,8 +7,6 @@ import { set } from "@ember/object";
 import { isAppWebview } from "discourse/lib/utilities";
 
 export default apiInitializer("0.8", (api) => {
-  delete Ember.TEMPLATES["loading"];
-
   api.modifyClass("route:application", {
     loadingIndicator: service(),
 
@@ -19,7 +17,7 @@ export default apiInitializer("0.8", (api) => {
         this.loadingIndicator.end();
       });
 
-      return this._super();
+      return true;
     },
   });
 
@@ -29,23 +27,6 @@ export default apiInitializer("0.8", (api) => {
     @observes("posts")
     _postsChanged() {
       this.queueRerender();
-    },
-  });
-
-  api.modifyClass("component:topic-list-item", {
-    // Core updates the header with topic information as soon as a topic-list-item is clicked
-    // This feels a little weird when the body is still showing old post content, so disable
-    // that behavior.
-    navigateToTopic(topic, href) {
-      // this.appEvents.trigger("header:update-topic", topic); // This is the core line we're removing
-      DiscourseURL.routeTo(href || topic.get("url"));
-      return false;
-    },
-  });
-
-  api.modifyClass("controller:discovery", {
-    set loading(value) {
-      // no-op. We don't want the loading spinner to show on the discovery routes any more
     },
   });
 
