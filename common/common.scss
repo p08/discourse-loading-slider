@@ -56,3 +56,17 @@
     top: 49px; // TODO: Share $footer-nav-height from footer-nav.scss
   }
 }
+
+.delayed-loading-spinner,
+body.loading .loading-container {
+  animation: 0.5s loading-container-show ease 1.5s 1 both;
+}
+
+@keyframes loading-container-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
