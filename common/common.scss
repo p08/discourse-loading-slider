@@ -57,6 +57,21 @@
   }
 }
 
+.below-site-header-outlet.full-page-loading-spinner {
+  padding-top: 1.8em;
+  display: none;
+}
+
+body.still-loading {
+  .below-site-header-outlet.full-page-loading-spinner {
+    display: block;
+  }
+
+  #main-outlet {
+    display: none;
+  }
+}
+
 // body #main-outlet {
 //   transition: opacity 0.2s ease;
 // }
