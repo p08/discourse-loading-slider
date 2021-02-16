@@ -14,45 +14,55 @@ export default Service.extend(Evented, {
     this.loadingTimes = [DEFAULT_LOADING_TIME];
     this.set("averageTime", DEFAULT_LOADING_TIME);
     this.i = 0;
+    this.scheduled = [];
+  },
+
+  cancelScheduled() {
+    this.scheduled.forEach((s) => cancel(s));
+    this.scheduled = [];
   },
 
   start() {
     this.set("startedAt", Date.now());
     this.set("loading", true);
     this.trigger("stateChanged", true);
-    schedule("afterRender", () => {
-      document.body.classList.add("loading");
-      document.documentElement.style.setProperty(
-        "--loading-duration",
-        `${this.averageTime.toFixed(2)}s`
-      );
-    });
 
-    if (this.stillLoadingTimer) {
-      cancel(this.stillLoadingTimer);
-    }
+    this.cancelScheduled();
 
-    this.stillLoadingTimer = later(
-      this,
-      "stillLoading",
-      STILL_LOADING_DURATION * 1000
+    this.scheduled.push(
+      schedule("afterRender", () => {
+        document.body.classList.add("loading");
+        document.documentElement.style.setProperty(
+          "--loading-duration",
+          `${this.averageTime.toFixed(2)}s`
+        );
+      })
+    );
+
+    this.scheduled.push(
+      later(this, "stillLoading", STILL_LOADING_DURATION * 1000)
     );
   },
 
   stillLoading() {
-    schedule("afterRender", () => {
-      document.body.classList.add("still-loading");
-    });
+    this.scheduled.push(
+      schedule("afterRender", () => {
+        document.body.classList.add("still-loading");
+      })
+    );
   },
 
   end() {
     this.updateAverage((Date.now() - this.startedAt) / 1000);
     this.set("loading", false);
     this.trigger("stateChanged", false);
-    cancel(this.stillLoadingTimer);
-    schedule("afterRender", () => {
-      document.body.classList.remove("loading", "still-loading");
-    });
+
+    this.cancelScheduled();
+    this.scheduled.push(
+      schedule("afterRender", () => {
+        document.body.classList.remove("loading", "still-loading");
+      })
+    );
   },
 
   updateAverage(durationSeconds) {
