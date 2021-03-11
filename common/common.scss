@@ -80,3 +80,25 @@ body.still-loading {
 //   opacity: 0.2;
 //   transition: opacity var(--loading-duration) ease;
 // }
+
+.delayed-loading-spinner,
+// body #main-outlet {
+body.loading .loading-container {
+//   transition: opacity 0.2s ease;
+  animation: 0.5s loading-container-show ease 1.5s 1 both;
+// }
+}
+
+
+@keyframes loading-container-show {
+// body.loading #main-outlet {
+  from {
+//   opacity: 0.2;
+    opacity: 0;
+//   transition: opacity var(--loading-duration) ease;
+  }
+// }
+  to {
+    opacity: 1;
+  }
+}
