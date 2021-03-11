@@ -19,7 +19,12 @@ export default apiInitializer("0.8", (api) => {
         this.loadingIndicator.end();
       });
 
-      return this._super();
+      let superLoading = this._super();
+      if (superLoading !== null) {
+        return superLoading;
+      }
+
+      return true;
     },
   });
 
