@@ -72,14 +72,14 @@ body.still-loading {
   }
 }
 
-// body #main-outlet {
-//   transition: opacity 0.2s ease;
-// }
+body #main-outlet {
+transition: opacity 0.2s ease;
+}
 
-// body.loading #main-outlet {
-//   opacity: 0.2;
-//   transition: opacity var(--loading-duration) ease;
-// }
+body.loading #main-outlet {
+opacity: 0.2;
+transition: opacity var(--loading-duration) ease;
+}
 
 .delayed-loading-spinner,
 // body #main-outlet {
