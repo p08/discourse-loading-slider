@@ -57,16 +57,26 @@
   }
 }
 
-.delayed-loading-spinner,
-body.loading .loading-container {
-  animation: 0.5s loading-container-show ease 1.5s 1 both;
+.below-site-header-outlet.full-page-loading-spinner {
+  padding-top: 1.8em;
+  display: none;
 }
 
-@keyframes loading-container-show {
-  from {
-    opacity: 0;
+body.still-loading {
+  .below-site-header-outlet.full-page-loading-spinner {
+    display: block;
   }
-  to {
-    opacity: 1;
+
+  #main-outlet {
+    display: none;
   }
 }
+
+// body #main-outlet {
+//   transition: opacity 0.2s ease;
+// }
+
+// body.loading #main-outlet {
+//   opacity: 0.2;
+//   transition: opacity var(--loading-duration) ease;
+// }
