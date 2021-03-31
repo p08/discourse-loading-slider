@@ -58,8 +58,8 @@
 }
 
 body.loading #main-outlet {
-  opacity: 0.2;
-  transition: opacity 0.2s ease;
+  opacity: 0.0;
+  transition: opacity var(--loading-duration) ease;
 }
 
 .delayed-loading-spinner,
